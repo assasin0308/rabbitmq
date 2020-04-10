@@ -69,7 +69,12 @@ class  RabbitMq{
      * @Date: 2020/4/10 17:04
      * @param:
      */
-    public  function send_msg($msg_arr){
+    public  function send_msg($queue,$msg_arr){
+        $this->queue = $queue;
+        if(!$queue){
+            echo 'Please confirm your queue name ';
+            return false;
+        }
         if(!is_array($msg_arr) || empty($msg_arr)){
             echo "your msg illegal ";
             return false;
@@ -78,7 +83,7 @@ class  RabbitMq{
             'delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT
         ]);
         $this->channel->basic_publish($msg,'',$this->queue);
-//        echo 'send message'.$data.PHP_EOL;
+        echo 'send message'.$msg_arr.PHP_EOL;
     }
 
     /**

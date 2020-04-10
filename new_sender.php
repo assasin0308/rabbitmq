@@ -33,7 +33,7 @@
             'content' => 'hello-assasin-'.time(),
         ];
         // send your msg
-        $rabbitmq->send_msg($arr);
+        $rabbitmq->send_msg('test-2',$arr);
     }
 
 
