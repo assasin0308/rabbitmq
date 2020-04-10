@@ -4,7 +4,7 @@
  * @Author: assasin<assasin0308@sina.com>
  * @Date: 2020/4/10 16:26
  */
-    require_once('./rabbitmq_lib.php');
+    require_once './rabbitmq_lib.php';
     use PhpAmqpLib\Connection\AMQPStreamConnection;
     use PhpAmqpLib\Message\AMQPMessage;
 
@@ -43,7 +43,7 @@
         $channel->basic_publish($msg,'',$rabbitmq->queue);
         echo 'send message'.$data.PHP_EOL;
     }
-    
+
 
 
     // the end  close all
