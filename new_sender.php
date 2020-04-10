@@ -14,7 +14,7 @@
         'rabbbit_port' => '5672',
         'rabbbit_user' => 'assasin',
         'rabbbit_userpasswd' => '123456',
-        'rabbbit_queue' => 'test',
+        'rabbbit_queue' => 'xzkj_admin',
     ];
     // instance of rabbitmq
     $rabbitmq = new RabbitMq($connection_arr);
@@ -33,7 +33,7 @@
             'content' => 'hello-assasin-'.time(),
         ];
         // send your msg
-        $rabbitmq->send_msg('xzkj_admin',$arr);
+        $rabbitmq->send_msg($arr);
     }
 
 

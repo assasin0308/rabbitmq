@@ -69,12 +69,7 @@ class  RabbitMq{
      * @Date: 2020/4/10 17:04
      * @param:
      */
-    public  function send_msg($queue,$msg_arr){
-        $this->queue = $queue;
-        if(!$queue){
-            echo 'Please confirm your queue name ';
-            return false;
-        }
+    public  function send_msg($msg_arr){
         if(!is_array($msg_arr) || empty($msg_arr)){
             echo "your msg illegal ";
             return false;
