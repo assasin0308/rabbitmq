@@ -26,7 +26,7 @@
 
     // start your code
 
-    $rabbitmq->receive_msg('test-3');
+    $rabbitmq->receive_msg('test-2');
 
 
     // close all
