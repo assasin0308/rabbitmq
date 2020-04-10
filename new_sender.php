@@ -9,7 +9,7 @@ use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
 $connection_arr = [
     'rabbbit_host' => '192.168.1.118',
-    'rabbbit_port' => '15672',
+    'rabbbit_port' => '5672',
     'rabbbit_user' => 'assasin',
     'rabbbit_userpasswd' => '123456',
     'rabbbit_queue' => 'worker',
