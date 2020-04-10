@@ -15,7 +15,7 @@
         'rabbbit_port' => '5672',
         'rabbbit_user' => 'assasin',
         'rabbbit_userpasswd' => '123456',
-        'rabbbit_queue' => 'xzkj_admin',
+        'rabbbit_queue' => 'test',
     ];
     // instance of rabbitmq
     $rabbitmq = new RabbitMq($connection_arr);
@@ -25,8 +25,7 @@
     $channel = $rabbitmq->declare_channel();
 
     // start your code
-
-    $rabbitmq->receive_msg('xzkj_admin');
+    $rabbitmq->receive_msg();
 
 
     // close all

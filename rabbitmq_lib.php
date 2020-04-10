@@ -87,8 +87,7 @@ class  RabbitMq{
      * @Date: 2020/4/10 17:05
      * @param:
      */
-    public  function receive_msg($queue){
-        $this->queue = $queue;
+    public  function receive_msg(){
         echo ' [*] Waiting for messages. To exit press CTRL+C '.PHP_EOL;
         $callback = function($msg){
             echo "received message:",$msg->body,PHP_EOL;
