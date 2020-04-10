@@ -101,10 +101,10 @@ class  RabbitMq{
 //            $msg->delivery_info['channel']->basic_ack($msg->delivery_info['delivery_tag']);
 //        };
         $this->channel->basic_qos(null,1,null);  //处理和确认完消息后再消费新的消息
-        $this->channel->basic_consume($this->queue, '', false, false, false, false, function($message){
-            echo "received message:",$message->body,PHP_EOL;
+        $this->channel->basic_consume($this->queue, '', false, false, false, false, function($msg){
+            echo "received message:",$msg->body,PHP_EOL;
             sleep(1);
-            $message->delivery_info['channel']->basic_ack($message->delivery_info['delivery_tag']);
+            $msg->delivery_info['channel']->basic_ack($msg->delivery_info['delivery_tag']);
         }); //第4个参数值为false表示启用消息确认
 
         while (count($this->channel->callbacks)){

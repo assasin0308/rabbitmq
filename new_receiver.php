@@ -26,7 +26,7 @@
 
     // start your code
 
-    $rabbitmq->receive_msg('test_2');
+    $rabbitmq->receive_msg('xzkj_admin');
 
 
     // close all
