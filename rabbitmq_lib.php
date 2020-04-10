@@ -83,7 +83,7 @@ class  RabbitMq{
             'delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT
         ]);
         $this->channel->basic_publish($msg,'',$this->queue);
-        echo 'send message'.$msg_arr.PHP_EOL;
+        echo 'send message'.json_encode($msg_arr).PHP_EOL;
     }
 
     /**
