@@ -94,18 +94,14 @@ class  RabbitMq{
      */
     public  function receive_msg($queue){
         $this->queue = $queue;
-//        echo ' [*] Waiting for messages. To exit press CTRL+C '.PHP_EOL;
-//        $callback = function($msg){
-//            echo "received message:",$msg->body,PHP_EOL;
-//            sleep(1);
-//            $msg->delivery_info['channel']->basic_ack($msg->delivery_info['delivery_tag']);
-//        };
-        $this->channel->basic_qos(null,1,null);  //处理和确认完消息后再消费新的消息
-        $this->channel->basic_consume($this->queue, '', false, false, false, false, function($msg){
+        echo ' [*] Waiting for messages. To exit press CTRL+C '.PHP_EOL;
+        $callback = function($msg){
             echo "received message:",$msg->body,PHP_EOL;
             sleep(1);
             $msg->delivery_info['channel']->basic_ack($msg->delivery_info['delivery_tag']);
-        }); //第4个参数值为false表示启用消息确认
+        };
+        $this->channel->basic_qos(null,1,null);  //处理和确认完消息后再消费新的消息
+        $this->channel->basic_consume($this->queue, '', false, false, false, false, $callback); //第4个参数值为false表示启用消息确认
 
         while (count($this->channel->callbacks)){
             $this->channel->wait();
