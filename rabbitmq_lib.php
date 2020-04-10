@@ -8,7 +8,7 @@ require_once __DIR__.'/vendor/autoload.php';
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
 class  RabbitMq{
-    private $queue;
+    public $queue;
     private $rabbitmq_host;
     private $rabbitmq_port;
     private $rabbitmq_user;

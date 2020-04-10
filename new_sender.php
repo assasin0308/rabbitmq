@@ -31,7 +31,7 @@ for($i = 0;$i < 100;$i++){
     $msg = new AMQPMessage($data,[
         'delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT
     ]);
-    $channel->basic_publish($msg,'',$queue);
+    $channel->basic_publish($msg,'',$this->queue);
     echo 'send message'.$data.PHP_EOL;
 }
 
