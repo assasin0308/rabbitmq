@@ -32,16 +32,8 @@
             'order_id' => str_replace('.', '' , microtime(true)) . mt_rand(10, 99) . $i,
             'content' => 'hello-assasin-'.time(),
         ];
-        $data = json_encode($arr);
-    //    $msg = new AMQPMessage($data,[
-    //        'delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT
-    //        // 设置rabbitmq重启后也不会丢失队列，或者设置为'delivery_mode' => 2
-    //    ]);
-        $msg = new AMQPMessage($data,[
-            'delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT
-        ]);
-        $channel->basic_publish($msg,'',$rabbitmq->queue);
-        echo 'send message'.$data.PHP_EOL;
+        // send your msg
+        $rabbitmq->send_msg($arr);
     }
 
 

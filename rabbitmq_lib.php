@@ -8,7 +8,7 @@ require_once __DIR__.'/vendor/autoload.php';
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
 class  RabbitMq{
-    public $queue;
+    private $queue;
     private $rabbitmq_host;
     private $rabbitmq_port;
     private $rabbitmq_user;
@@ -61,6 +61,58 @@ class  RabbitMq{
         //在生产者和消费者中都要将queue_declare第3个参数设置为true，表示让消息队列持久化。
         $this->channel->queue_declare($this->queue,false,true,false,false);
         return $this->channel;
+    }
+
+    /**
+     * @Notes: send msg to queue
+     * @Author: assasin <assasin0308@sina.com>
+     * @Date: 2020/4/10 17:04
+     * @param:
+     */
+    public  function send_msg($msg_arr){
+        if(!is_array($msg_arr) || empty($msg_arr)){
+            echo "your msg illegal ";
+            return false;
+        }
+        $msg = new AMQPMessage(json_encode($msg_arr),[
+            'delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT
+        ]);
+        $this->channel->basic_publish($msg,'',$this->queue);
+//        echo 'send message'.$data.PHP_EOL;
+    }
+
+    /**
+     * @Notes: receive msg from queue
+     * @Author: assasin <assasin0308@sina.com>
+     * @Date: 2020/4/10 17:05
+     * @param:
+     */
+    public  function receive_msg($queue){
+        $this->queue = $queue;
+//        echo ' [*] Waiting for messages. To exit press CTRL+C '.PHP_EOL;
+//        $callback = function($msg){
+//            echo "received message:",$msg->body,PHP_EOL;
+//            sleep(1);
+//            $msg->delivery_info['channel']->basic_ack($msg->delivery_info['delivery_tag']);
+//        };
+        $this->channel->basic_qos(null,1,null);  //处理和确认完消息后再消费新的消息
+        $this->channel->basic_consume($this->queue, '', false, false, false, false, $this->_callback()); //第4个参数值为false表示启用消息确认
+
+        while (count($this->channel->callbacks)){
+            $this->channel->wait();
+        }
+    }
+
+    /**
+     * @Notes: callback of msg
+     * @Author: assasin <assasin0308@sina.com>
+     * @Date: 2020/4/10 17:14
+     * @param:
+     */
+    private function _callback($msg){
+        echo "received message:",$msg->body,PHP_EOL;
+        sleep(1);
+        $msg->delivery_info['channel']->basic_ack($msg->delivery_info['delivery_tag']);
     }
 
     /**

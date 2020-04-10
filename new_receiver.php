@@ -26,18 +26,7 @@
 
     // start your code
 
-    echo ' [*] Waiting for messages. To exit press CTRL+C '.PHP_EOL;
-    $callback = function($msg){
-        echo "received message:",$msg->body,PHP_EOL;
-        sleep(1);
-        $msg->delivery_info['channel']->basic_ack($msg->delivery_info['delivery_tag']);
-    };
-    $channel->basic_qos(null,1,null);  //处理和确认完消息后再消费新的消息
-    $channel->basic_consume($rabbitmq->queue, '', false, false, false, false, $callback); //第4个参数值为false表示启用消息确认
-
-    while (count($channel->callbacks)){
-        $channel->wait();
-    }
+    $rabbitmq->receive_msg('test');
 
 
     // close all
