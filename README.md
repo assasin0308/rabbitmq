@@ -1,13 +1,13 @@
 # rabbitmq
 ### install dependency
 
-```json
+```shell
 yum -y install gcc glibc-devel make ncurses-devel openssl-devel xmlto perl wget gtk2-devel binutils-devel
 ```
 
 ### install Erlang
 
-```json
+```shell
 wget http://erlang.org/download/otp_src_22.0.tar.gz
 tar -zxvf otp_src_22.0.tar.gz
 mv otp_src_22.0 /usr/local/
@@ -30,7 +30,7 @@ halt().
 
 ### install Rabbitmq
 
-```json
+```shell
 wget https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.7.15/rabbitmq-server-generic-unix-3.7.15.tar.xz
 yum install -y xz
 /bin/xz -d rabbitmq-server-generic-unix-3.7.15.tar.xz
